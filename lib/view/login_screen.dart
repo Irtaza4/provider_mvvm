@@ -1,15 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm_provider/utils/utils.dart';
+import 'package:mvvm_provider/view_model/login_view_model.dart';
+import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget {
+import '../res/components/app_button.dart';
+
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    final height = MediaQuery.of(context).size.height*1;
+    final provider = Provider.of<LoginViewModel>(context);
+    return Scaffold(
+      appBar: AppBar(
+        title:Text('Login Screen',style: TextStyle(
+          color: Colors.white
+        ),),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+              TextFormField(
+                controller: provider.emailController,
+                focusNode: provider.emailNode,
+                keyboardType: TextInputType.emailAddress,
+
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.email_outlined,color: Colors.blue,),
+
+                ),
+                onFieldSubmitted: (value){
+                  Utils.changeFocus(context, provider.emailNode, provider.passwordNode);
+                },
+              ),
+            SizedBox(
+              height: height*0.03,
+            ),
+            TextFormField(
+              controller: provider.passwordController,
+              focusNode: provider.passwordNode,
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: provider.visible,
+              
+              decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.lock_open_outlined,color: Colors.blue,),
+                suffixIcon: IconButton(onPressed: (){
+                  provider.visibility();
+                }, icon: Icon(provider.visible?Icons.visibility_off:Icons.visibility),color: Colors.blue,)
+              ),
+            ),
+            SizedBox(
+              height: height*0.03,
+            ),
+            AppButton(text: 'Login',onTap: (){
+
+            },)
+          ],
+        ),
+      ),
+
+    );
   }
 }
