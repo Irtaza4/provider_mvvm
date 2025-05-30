@@ -20,6 +20,7 @@ class Utils{
         context: context,
         flushbar: Flushbar(
           message: message,
+          duration: Duration(seconds: 2),
         )..show(context)
     );
 

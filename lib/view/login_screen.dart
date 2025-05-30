@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm_provider/utils/utils.dart';
+import 'package:mvvm_provider/view_model/auth_view_model.dart';
 import 'package:mvvm_provider/view_model/login_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height*1;
     final provider = Provider.of<LoginViewModel>(context);
+    final provider2 = Provider.of<AuthViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         title:Text('Login Screen',style: TextStyle(
@@ -63,8 +65,21 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               height: height*0.03,
             ),
-            AppButton(text: 'Login',onTap: (){
-
+            AppButton(loading: false,text: 'Login',onTap: (){
+              if(provider.emailController.text.isEmpty){
+                Utils.flushBarMessage('Enter Email', context);
+              }
+              else if(provider.passwordController.text.isEmpty){
+                Utils.flushBarMessage('Enter password', context);
+              }
+              else if(provider.passwordController.text.length < 6){
+                Utils.flushBarMessage('password cannot be less then 6 number', context);
+              }
+              Map data={
+                "email": provider.emailController.text,
+                "password": provider.passwordController.text
+              };
+              provider2.loginApi(data);
             },)
           ],
         ),
