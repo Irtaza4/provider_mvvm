@@ -7,7 +7,7 @@ class LoginViewModel extends ChangeNotifier{
   final _passwordController = TextEditingController();
   final _emailNode = FocusNode();
   final _passwordNode = FocusNode();
-  bool _visible = false;
+  bool _visible = true;
 
   TextEditingController get emailController =>_emailController;
   TextEditingController get passwordController =>_passwordController;

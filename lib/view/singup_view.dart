@@ -1,14 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:mvvm_provider/utils/routes/route_names.dart';
-import 'package:mvvm_provider/utils/utils.dart';
-import 'package:mvvm_provider/view_model/auth_view_model.dart';
-import 'package:mvvm_provider/view_model/login_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../res/components/app_button.dart';
+import '../utils/utils.dart';
+import '../view_model/auth_view_model.dart';
+import '../view_model/login_view_model.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SingupView extends StatelessWidget {
+  const SingupView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +18,8 @@ class LoginScreen extends StatelessWidget {
     final provider2 = Provider.of<AuthViewModel>(context);
     return Scaffold(
       appBar: AppBar(
-        title:Text('Login Screen',style: TextStyle(
-          color: Colors.white
+        title:Text('Signup Screen',style: TextStyle(
+            color: Colors.white
         ),),
         centerTitle: true,
         backgroundColor: Colors.blue,
@@ -30,21 +31,21 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-              TextFormField(
-                controller: provider.emailController,
-                focusNode: provider.emailNode,
-                keyboardType: TextInputType.emailAddress,
+            TextFormField(
+              controller: provider.emailController,
+              focusNode: provider.emailNode,
+              keyboardType: TextInputType.emailAddress,
 
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email_outlined,color: Colors.blue,),
+              decoration: InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.email_outlined,color: Colors.blue,),
 
-                ),
-                onFieldSubmitted: (value){
-                  Utils.changeFocus(context, provider.emailNode, provider.passwordNode);
-                },
               ),
+              onFieldSubmitted: (value){
+                Utils.changeFocus(context, provider.emailNode, provider.passwordNode);
+              },
+            ),
             SizedBox(
               height: height*0.03,
             ),
@@ -53,20 +54,20 @@ class LoginScreen extends StatelessWidget {
               focusNode: provider.passwordNode,
               keyboardType: TextInputType.visiblePassword,
               obscureText: provider.visible,
-              
+
               decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.lock_open_outlined,color: Colors.blue,),
-                suffixIcon: IconButton(onPressed: (){
-                  provider.visibility();
-                }, icon: Icon(provider.visible?Icons.visibility_off:Icons.visibility),color: Colors.blue,)
+                  prefixIcon: Icon(Icons.lock_open_outlined,color: Colors.blue,),
+                  suffixIcon: IconButton(onPressed: (){
+                    provider.visibility();
+                  }, icon: Icon(provider.visible?Icons.visibility_off:Icons.visibility),color: Colors.blue,)
               ),
             ),
             SizedBox(
               height: height*0.03,
             ),
-            AppButton(loading: provider2.loading,text: 'Login',onTap: (){
+            AppButton(loading: provider2.signUpLoading,text: 'Signup',onTap: (){
               if(provider.emailController.text.isEmpty){
                 Utils.flushBarMessage('Enter Email', context);
               }
@@ -80,8 +81,7 @@ class LoginScreen extends StatelessWidget {
                 "email": provider.emailController.text,
                 "password": provider.passwordController.text
               };
-              provider2.loginApi(context,data);
-
+              provider2.signUpApi(context,data);
             },),
             SizedBox(
               height: height*0.01,
@@ -91,14 +91,14 @@ class LoginScreen extends StatelessWidget {
               children:
 
               [
-              Text("Don't have an account?"),
+                Text("Already have an account?"),
                 TextButton(onPressed: (){
-                  Navigator.pushNamed(context, RouteNames.signupScreen);
-                }, child: Text('Signup',style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold
+                  Navigator.pushNamed(context, RouteNames.loginScreen);
+                }, child: Text('Login',style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold
                 ),))
-            ],)
+              ],)
           ],
         ),
       ),

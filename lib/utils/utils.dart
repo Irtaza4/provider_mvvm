@@ -2,6 +2,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Utils{
@@ -10,10 +11,17 @@ class Utils{
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(next);
   }
-  static toastMessage(String message){
+  static toastMessage(String message,Color color){
 
     Fluttertoast.showToast(
-        msg: message);
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: color,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
   }
   static flushBarMessage(String message, BuildContext context){
     showFlushbar(

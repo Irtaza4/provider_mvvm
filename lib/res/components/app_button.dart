@@ -18,7 +18,7 @@ class AppButton extends StatelessWidget {
           color: Colors.blue,
           borderRadius: BorderRadius.circular(15)
         ),
-        child: Text(text,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15),),
+        child: loading? CircularProgressIndicator(color: Colors.white,):Text(text,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15),),
       ),
     );
   }
