@@ -3,6 +3,7 @@ import 'package:mvvm_provider/utils/routes/route_names.dart';
 import 'package:mvvm_provider/utils/routes/routes.dart';
 import 'package:mvvm_provider/view/login_screen.dart';
 import 'package:mvvm_provider/view_model/auth_view_model.dart';
+import 'package:mvvm_provider/view_model/home_view_model.dart';
 import 'package:mvvm_provider/view_model/login_view_model.dart';
 import 'package:mvvm_provider/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_)=>LoginViewModel()),
       ChangeNotifierProvider(create: (_)=>AuthViewModel()),
-      ChangeNotifierProvider(create: (_)=>UserViewModel())
+      ChangeNotifierProvider(create: (_)=>UserViewModel()),
+      ChangeNotifierProvider(create: (_)=>HomeViewModel())
     ],
     child:  MaterialApp(
       title: 'Flutter Demo',
